@@ -10,8 +10,9 @@
 
 @interface NSParagraphStyle (HooText)
 
-+ (NSParagraphStyle *)hoo_styleWithCTStyle:(CTParagraphStyleRef)CTStyle;
-- (CTParagraphStyleRef)hoo_CTStyle CF_RETURNS_RETAINED;
+//ParagraphStyle的NS对象与CF对象互转
++ (NSParagraphStyle *)styleWithCTStyle:(CTParagraphStyleRef)CTStyle;
+- (CTParagraphStyleRef)CTStyle CF_RETURNS_RETAINED;
 
 
 //- (NSParagraphStyle *)hoo_styleWithlineSpacing

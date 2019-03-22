@@ -7,8 +7,22 @@
 //
 
 #import "NSMutableAttributedString+HooText.h"
+#import <objc/runtime.h>
+#import "HooCoreTextView.h"
 
 @implementation NSMutableAttributedString (HooText)
+
+
+- (void)setCoreTextView:(HooCoreTextView *)coreTextView {
+    if(coreTextView) {
+        objc_setAssociatedObject(self, @selector(coreTextView), coreTextView, OBJC_ASSOCIATION_ASSIGN);
+    }
+}
+- (HooCoreTextView *)coreTextView {
+    HooCoreTextView *coretextView = objc_getAssociatedObject(self, @selector(coreTextView));
+    //NSLog(@"get coreTextView = %@",coretextView);
+    return coretextView;
+}
 
 - (void)appendString:(NSString *)string {
     [self appendString:string font:nil color:nil backgroundColor:nil];
@@ -31,10 +45,12 @@
     if(backgroundColor)
         [astring addAttribute:NSBackgroundColorAttributeName value:backgroundColor range:NSMakeRange(0, astring.length)];
     [self appendAttributedString:astring];
+    //刷新coretext
+    [self.coreTextView setNeedsDisplay];
 }
 
 #define HooSetParagraphAttributeAtRange(_attr_) \
-if(range.location+range.length>self.length) {NSLog(@"out of range"); return;} \
+NSAssert(range.location+range.length<=self.length, @"out if range"); \
 [self enumerateAttribute:NSParagraphStyleAttributeName inRange:range options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) { \
 NSParagraphStyle *style = (NSParagraphStyle *)value; \
 NSMutableParagraphStyle *muStyle = nil; \
@@ -46,7 +62,8 @@ if(style) { \
 } \
 muStyle._attr_ = _attr_; \
 [self addAttribute:NSParagraphStyleAttributeName value:muStyle range:range]; \
-}];
+}]; \
+[self.coreTextView setNeedsDisplay];
 
 
 - (void)hoo_setLineSpacing:(float)lineSpacing {
@@ -55,10 +72,7 @@ muStyle._attr_ = _attr_; \
 - (void)hoo_setLineSpacing:(float)lineSpacing range:(NSRange)range {
     //HooSetParagraphAttributeAtRange(lineSpacing);
     
-    //CFTypeRef ref = (__bridge CFTypeRef)self;
-    //NSLog(@"retaincout = %ld",CFGetRetainCount(ref));
-    //NSLog(@"sub = %@",[self attributedSubstringFromRange:range]);
-    if(range.location+range.length>self.length) {NSLog(@"out of range"); return;}
+    NSAssert(range.location+range.length<=self.length, @"out if range");
     [self enumerateAttribute:NSParagraphStyleAttributeName inRange:range options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) {
         NSParagraphStyle *style = (NSParagraphStyle *)value;
         NSMutableParagraphStyle *muStyle = nil;
@@ -72,7 +86,7 @@ muStyle._attr_ = _attr_; \
         muStyle.lineSpacing = lineSpacing;
         [self addAttribute:NSParagraphStyleAttributeName value:muStyle range:range];
     }];
-
+    [self.coreTextView setNeedsDisplay];
 }
 
 - (void)hoo_setParagraphSpacing:(float)paragraphSpacing {

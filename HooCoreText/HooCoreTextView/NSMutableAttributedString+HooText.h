@@ -8,9 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+@class HooCoreTextView;
 
 @interface NSMutableAttributedString (HooText)
 
+@property (nonatomic,weak) HooCoreTextView *coreTextView;
+
+//text
 - (void)appendString:(NSString *)string;
 - (void)appendString:(NSString *)string font:(UIFont *)font;
 - (void)appendString:(NSString *)string font:(UIFont *)font color:(UIColor *)color;

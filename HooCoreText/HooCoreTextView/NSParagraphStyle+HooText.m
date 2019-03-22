@@ -30,7 +30,7 @@
 
 @implementation NSParagraphStyle (HooText)
 
-+ (NSParagraphStyle *)hoo_styleWithCTStyle:(CTParagraphStyleRef)CTStyle {
++ (NSParagraphStyle *)styleWithCTStyle:(CTParagraphStyleRef)CTStyle {
     if (CTStyle == NULL) return nil;
     
     NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
@@ -125,7 +125,7 @@
     return style;
 }
 
-- (CTParagraphStyleRef)hoo_CTStyle CF_RETURNS_RETAINED {
+- (CTParagraphStyleRef)CTStyle CF_RETURNS_RETAINED {
     CTParagraphStyleSetting set[kCTParagraphStyleSpecifierCount] = { 0 };
     int count = 0;
     

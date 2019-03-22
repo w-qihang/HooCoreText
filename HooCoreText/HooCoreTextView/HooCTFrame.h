@@ -6,9 +6,7 @@
 //  Copyright © 2018年 q.h. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <CoreGraphics/CoreGraphics.h>
-@class UIView;
+#import <UIKit/UIKit.h>
 
 @interface HooCTFrame : NSObject
 
@@ -17,6 +15,7 @@
 
 - (instancetype)initWithAttributedString:(NSAttributedString *)aStr;
 - (instancetype)initWithAttributedString:(NSAttributedString *)aStr ContentRect:(CGRect)contentRect;
-- (void)drawInContext:(CGContextRef)context appendViewBlock:(void (^)(UIView *))block;
+
+- (void)drawInContext:(CGContextRef)context InView:(UIView *)superView;
 
 @end

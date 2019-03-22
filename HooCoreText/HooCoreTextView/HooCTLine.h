@@ -6,10 +6,12 @@
 //  Copyright © 2018年 q.h. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import <CoreText/CoreText.h>
 
 @interface HooCTLine : NSObject
+
+@property (nonatomic) CGPoint position;
 
 @property (nonatomic,readonly) CGFloat ascent;
 @property (nonatomic,readonly) CGFloat descent;

@@ -6,14 +6,22 @@
 //  Copyright © 2018年 q.h. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-@class NSParagraphStyle;
+#import <UIKit/UIKit.h>
 
 @interface NSAttributedString (HooText)
 
-- (NSParagraphStyle *)hoo_paragraphStyle;
-- (NSParagraphStyle *)hoo_paragraphStyleAtIndex:(NSUInteger)index;
-- (NSParagraphStyle *)hoo_paragraphStyleAtIndex:(NSUInteger)index effectiveRange:(NSRangePointer)range;
+//
++ (NSAttributedString *)attachmentStringWithContent:(id)content
+                                    contentPosition:(CGPoint)position
+                                              width:(float)width
+                                             ascent:(float)ascent
+                                            descent:(float)descent
+                                    backgroundColor:(UIColor *)backgroundColor;
+
+//返回指定位置的paragraphStyle
+- (NSParagraphStyle *)paragraphStyle;
+- (NSParagraphStyle *)paragraphStyleAtIndex:(NSUInteger)index;
+- (NSParagraphStyle *)paragraphStyleAtIndex:(NSUInteger)index effectiveRange:(NSRangePointer)range;
 
 - (void)lastLineAscent:(double *)ascent descent:(double *)descent;
 @end

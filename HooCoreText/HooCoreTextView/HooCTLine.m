@@ -21,15 +21,27 @@
     return self;
 }
 - (NSArray *)runArr {
+    if(!_lineRef)
+        return nil;
+    CFArrayRef runs = CTLineGetGlyphRuns(_lineRef);
+    if(!CFArrayGetCount(runs)) {
+        return nil;
+    }
+    
     NSMutableArray *mArr = [[NSMutableArray alloc] init];
-    NSArray *arr = (__bridge NSArray *)CTLineGetGlyphRuns(_lineRef);
-    for (int i=0;i<arr.count;i++) {
-        CTRunRef runRef = (__bridge CTRunRef)arr[i];
+    for (int i=0;i<CFArrayGetCount(runs);i++) {
+        CTRunRef runRef = CFArrayGetValueAtIndex(runs, i);
         HooCTRun *run = [[HooCTRun alloc] initWithRun:runRef];
         [mArr addObject:run];
     }
     return [mArr copy];
 }
+
+- (NSString *)description {
+    NSString *des = [NSString stringWithFormat:@"<HooCTLine: %p> positon:%@ ascent:%f descent:%f leading:%f runCount:%ld",self,NSStringFromCGPoint(self.position),self.ascent,self.descent,self.leading,self.runArr.count];
+    return des;
+}
+
 - (void)dealloc {
     CFRelease(_lineRef);
 }

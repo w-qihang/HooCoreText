@@ -9,7 +9,7 @@
 #import "HooCoreTextView.h"
 #import "NSAttributedString+HooText.h"
 #import "HooCTFrame.h"
-#import "HooCTRunDelegate.h"
+#import <CoreText/CoreText.h>
 
 #define kHooCharacterFont [UIFont systemFontOfSize:0.01]
 
@@ -21,6 +21,9 @@
 
 @implementation HooCoreTextView
 
+- (instancetype)init {
+    return [self initWithFrame:CGRectZero];
+}
 - (instancetype)initWithFrame:(CGRect)frame {
     return [self initWithFrame:frame lineVerticalAlignment:kLineVerticalAlignmentTop];
 }
@@ -29,20 +32,14 @@
 }
 - (instancetype)initWithFrame:(CGRect)frame lineVerticalAlignment:(LineVerticalAlignment)lineVerticalAlignment {
     if(self = [super initWithFrame:frame]) {
+        self.muastring = [[NSMutableAttributedString alloc] init];
         lineVerticalAlignment_ = lineVerticalAlignment;
+        [self addObserver:self forKeyPath:@"muastring" options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;
 }
-
-- (void)setAttributedString:(NSMutableAttributedString *)attributedString {
-    _muastring = attributedString;
-    [self setNeedsDisplay];
-}
-- (NSMutableAttributedString *)muastring {
-    if(!_muastring) {
-        _muastring = [[NSMutableAttributedString alloc] init];
-    }
-    return _muastring;
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    
 }
 
 - (void)setContentInsets:(UIEdgeInsets)contentInsets {
@@ -50,19 +47,20 @@
     [self setNeedsDisplay];
 }
 
+- (void)setMuastring:(NSMutableAttributedString *)muastring {
+    _muastring = [muastring mutableCopy];
+    _muastring.coreTextView = self;
+    [self setNeedsDisplay];
+}
+
 - (void)drawRect:(CGRect)rect {
     // Drawing code
-    
-    HooCTFrame *frame = [[HooCTFrame alloc]initWithAttributedString:self.muastring ContentRect:CGRectMake(_contentInsets.top, _contentInsets.left, self.bounds.size.width-_contentInsets.left-_contentInsets.right, self.bounds.size.height-_contentInsets.top-_contentInsets.bottom)];
-//    for(HooCTLine *line in frame.lineArr) {
-//        for (HooCTRun *run in line.ru  nArr) {
-//
-//        }
-//    }
-    
-    [frame drawInContext:UIGraphicsGetCurrentContext() appendViewBlock:^(UIView *subview) {
-        [self addSubview:subview];
-    }];
+    for(UIView *view in self.subviews) {
+        [view removeFromSuperview];
+    }
+
+    HooCTFrame *frame = [[HooCTFrame alloc]initWithAttributedString:self.muastring ContentRect:CGRectMake(_contentInsets.left, _contentInsets.top, self.bounds.size.width-_contentInsets.left-_contentInsets.right, self.bounds.size.height-_contentInsets.top-_contentInsets.bottom)];
+    [frame drawInContext:UIGraphicsGetCurrentContext() InView:self];
 }
 
 - (void)appendNewLine {
@@ -71,7 +69,7 @@
 - (void)appendNewLineWithHeight:(float)height {
     double ascent=0,descent=0;
     [self.muastring lastLineAscent:&ascent descent:&descent];
-    [self appendSpaceWithWidth:0 ascent:ascent descent:height+descent backgroundColor:nil userInfo:nil];
+    [self appendAttachmentWithContent:nil contentPosition:CGPointZero width:0 ascent:ascent descent:height+descent backgroundColor:nil];
     [self appendNewLine];
 }
 - (void)appendSpaceWithWidth:(float)width {
@@ -81,74 +79,95 @@
     [self appendSpaceWithWidth:width height:height backgroundColor:nil];
 }
 - (void)appendSpaceWithWidth:(float)width height:(float)height backgroundColor:(UIColor *)backgroundColor {
-    [self appendSpaceWithWidth:width height:height backgroundColor:backgroundColor userInfo:nil];
+    [self appendAttachmentWithContent:nil contentPosition:CGPointZero width:width height:height backgroundColor:backgroundColor];
 }
 - (void)appendImage:(UIImage *)image {
-    [self appendImage:image frame:CGRectMake(0, 0, image.size.width, image.size.height)];
+    [self appendImage:image position:CGPointZero];
 }
-- (void)appendImage:(UIImage *)image frame:(CGRect)frame {
-    [self appendSpaceWithWidth:frame.origin.x+frame.size.width height:frame.origin.y+frame.size.height backgroundColor:nil userInfo:@{kHooCTRunDelegateUserinfoContent:image,kHooCTRunDelegateUserinfoContentFrame:@(frame)}];
+- (void)appendImage:(UIImage *)image position:(CGPoint)position {
+    [self appendAttachmentWithContent:image contentPosition:position width:image.size.width+position.x height:image.size.height+position.y backgroundColor:nil];
 }
 - (void)appendView:(UIView *)view {
-    [self appendSpaceWithWidth:view.frame.origin.x+view.frame.size.width height:view.frame.origin.y+view.frame.size.height backgroundColor:nil userInfo:@{kHooCTRunDelegateUserinfoContent:view,kHooCTRunDelegateUserinfoContentFrame:@(view.frame)}];
+    [self appendView:view position:CGPointZero];
+}
+- (void)appendView:(UIView *)view position:(CGPoint)position {
+    [self appendAttachmentWithContent:view contentPosition:position width:view.bounds.size.width+position.x height:view.bounds.size.height+position.y backgroundColor:nil];
+}
+//- (void)appendImage:(UIImage *)image frame:(CGRect)frame {
+//    [self appendSpaceWithWidth:frame.origin.x+frame.size.width height:frame.origin.y+frame.size.height backgroundColor:nil userInfo:@{kHooCTRunDelegateUserinfoContent:image,kHooCTRunDelegateUserinfoContentFrame:@(frame)}];
+//}
+//- (void)appendView:(UIView *)view {
+//    [self appendSpaceWithWidth:view.frame.origin.x+view.frame.size.width height:view.frame.origin.y+view.frame.size.height backgroundColor:nil userInfo:@{kHooCTRunDelegateUserinfoContent:view,kHooCTRunDelegateUserinfoContentFrame:@(view.frame)}];
+//}
+
+- (void)appendAttachmentWithContent:(id)content contentPosition:(CGPoint)position width:(float)width height:(float)height backgroundColor:(UIColor *)backgroundColor {
+    double ascent=0,descent=0;
+    [self getAscent:&ascent descent:&descent byHeight:height];
+    [self appendAttachmentWithContent:content contentPosition:position width:width ascent:ascent descent:descent backgroundColor:backgroundColor];
 }
 
-- (void)appendSpaceWithWidth:(float)width height:(float)height backgroundColor:(UIColor *)backgroundColor userInfo:(NSDictionary *)userInfo{
-    double ascent=0,descent=0;
-    if(height>0) {
-        [self.muastring lastLineAscent:&ascent descent:&descent];
+- (void)appendAttachmentWithContent:(id)content contentPosition:(CGPoint)position width:(float)width ascent:(float)ascent descent:(float)descent backgroundColor:(UIColor *)backgroundColor {
+    [self.muastring appendAttributedString:[NSAttributedString attachmentStringWithContent:content contentPosition:position  width:width ascent:ascent descent:descent backgroundColor:backgroundColor]];
+}
+
+//根据LineVerticalAlignment计算ascent,descent
+- (void)getAscent:(double *)ascent descent:(double *)descent byHeight:(double)height {
+    double lastLineAscent=0,lastLineDescent=0;
+    if(height > 0) {
+        [self.muastring lastLineAscent:&lastLineAscent descent:&lastLineDescent];
+        if(lastLineAscent < 9) {
+            lastLineAscent = 9;
+        }
         switch (lineVerticalAlignment_) {
             case kLineVerticalAlignmentTop:
-                if(height>ascent) {
-                    [self appendSpaceWithWidth:width ascent:ascent descent:height-ascent backgroundColor:backgroundColor userInfo:userInfo];
+                if(height>lastLineAscent) {
+                    *ascent = lastLineAscent;
+                    *descent = height-lastLineAscent;
                 }
                 else {
-                    [self appendSpaceWithWidth:width ascent:height descent:0 backgroundColor:backgroundColor userInfo:userInfo];
+                    *ascent = height;
+                    *descent = 0;
                 }
                 break;
-            case kLineVerticalAlignmentCenter:
-                if(height>ascent+descent) {
-                    [self appendSpaceWithWidth:width ascent:ascent+(height-ascent-descent)/2 descent:descent+(height-ascent-descent)/2 backgroundColor:backgroundColor userInfo:userInfo];
-                }
-                else if(height>ascent) {
-                    [self appendSpaceWithWidth:width ascent:ascent descent:height-ascent backgroundColor:backgroundColor userInfo:userInfo];
+            case kLineVerticalAlignmentCenter: //在一行上会居中显示
+                if(height>lastLineAscent+lastLineDescent) {
+                    *ascent = lastLineAscent+(height-lastLineAscent-lastLineDescent)/2;
+                    *descent = lastLineDescent+(height-lastLineAscent-lastLineDescent)/2;
                 }
                 else {
-                    [self appendSpaceWithWidth:width ascent:height descent:0 backgroundColor:backgroundColor userInfo:userInfo];
+                    *ascent = lastLineAscent-(lastLineAscent+lastLineDescent-height)/2;
+                    *descent = lastLineDescent-(lastLineAscent+lastLineDescent-height)/2;
                 }
                 break;
             case kLineVerticalAlignmentBottom:
-                if(height>descent) {
-                    [self appendSpaceWithWidth:width ascent:height-descent descent:descent backgroundColor:backgroundColor userInfo:userInfo];
+                if(height>lastLineDescent) {
+                    *ascent = height-lastLineDescent;
+                    *descent = lastLineDescent;
+                    
                 }
                 else {
-                    [self appendSpaceWithWidth:width ascent:0 descent:height backgroundColor:backgroundColor userInfo:userInfo];
+                    *ascent = 0;
+                    *descent = height;
                 }
                 break;
             default:
                 break;
         }
-        
     }
-    else
-        [self appendSpaceWithWidth:width ascent:0 descent:0 backgroundColor:backgroundColor userInfo:userInfo];
+    else {
+        *ascent = 0;
+        *descent = 0;
+    }
 }
-- (void)appendSpaceWithWidth:(float)width ascent:(float)ascent descent:(float)descent  backgroundColor:(UIColor *)backgroundColor userInfo:(NSDictionary *)userInfo{
-    HooCTRunDelegate *delegate = [[HooCTRunDelegate alloc]init];
-    delegate.width = width;
-    delegate.ascent = ascent;
-    delegate.descent = descent;
-    delegate.userInfo = userInfo;
-    CTRunDelegateRef ref = [delegate CTRunDelegateRef];
+
+- (void)hoo_resizeToFit {
+    CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)_muastring);
+    CGSize targetSize = CGSizeMake(self.bounds.size.width-_contentInsets.left-_contentInsets.right, CGFLOAT_MAX);
+    CGSize size = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, (CFIndex)[_muastring length]), NULL, targetSize, NULL);
+    CFRelease(framesetter);
     
-    unichar objectReplacementChar = 0xFFFC;
-    NSString *content = [NSString stringWithCharacters:&objectReplacementChar length:1];
-    
-    NSMutableAttributedString *maString = [[NSMutableAttributedString alloc]initWithString:content];
-    [maString addAttribute:(id)kCTRunDelegateAttributeName value:(__bridge_transfer id)ref range:NSMakeRange(0,maString.length)];
-    if(backgroundColor)
-        [maString addAttribute:NSBackgroundColorAttributeName value:backgroundColor range:NSMakeRange(0, maString.length)];
-    [self.muastring appendAttributedString:maString];
+    [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, ceilf(size.height)+_contentInsets.top+_contentInsets.bottom)];
+    [self setNeedsDisplay];
 }
 
 - (void)dealloc {

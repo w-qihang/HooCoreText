@@ -12,7 +12,7 @@
 		3C13E9642147D8FB00F7BEEE /* HooCTRun.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C13E9632147D8FB00F7BEEE /* HooCTRun.m */; };
 		3C13E9672149121200F7BEEE /* NSParagraphStyle+HooText.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C13E9662149121200F7BEEE /* NSParagraphStyle+HooText.m */; };
 		3C13E96D2149378600F7BEEE /* NSAttributedString+HooText.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C13E96C2149378600F7BEEE /* NSAttributedString+HooText.m */; };
-		3C13E96F214BA15800F7BEEE /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C13E96E214BA15800F7BEEE /* test.png */; };
+		3C13E96F214BA15800F7BEEE /* test@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C13E96E214BA15800F7BEEE /* test@2x.png */; };
 		3C267719214225E5008EBB9F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C267718214225E5008EBB9F /* AppDelegate.m */; };
 		3C26771C214225E5008EBB9F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C26771B214225E5008EBB9F /* ViewController.m */; };
 		3C26771F214225E5008EBB9F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C26771D214225E5008EBB9F /* Main.storyboard */; };
@@ -22,7 +22,27 @@
 		3C26773021422649008EBB9F /* HooCoreTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C26772F21422649008EBB9F /* HooCoreTextView.m */; };
 		3C26773321426E95008EBB9F /* HooCTRunDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C26773221426E95008EBB9F /* HooCTRunDelegate.m */; };
 		3C26773621427F4C008EBB9F /* NSMutableAttributedString+HooText.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C26773521427F4C008EBB9F /* NSMutableAttributedString+HooText.m */; };
+		3C328049219BCDCF00E593FE /* HooCoreTextTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C328048219BCDCF00E593FE /* HooCoreTextTests.m */; };
+		3C328057219BCDF700E593FE /* HooCoreTextUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C328056219BCDF700E593FE /* HooCoreTextUITests.m */; };
+		3CE3E2C222448076009BD8E7 /* HooTextAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE3E2C122448076009BD8E7 /* HooTextAttachment.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3C32804B219BCDCF00E593FE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3C26770C214225E5008EBB9F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3C267713214225E5008EBB9F;
+			remoteInfo = HooCoreText;
+		};
+		3C328059219BCDF700E593FE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3C26770C214225E5008EBB9F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3C267713214225E5008EBB9F;
+			remoteInfo = HooCoreText;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		3C13E95C2147BD7600F7BEEE /* HooCTFrame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HooCTFrame.h; sourceTree = "<group>"; };
@@ -35,7 +55,7 @@
 		3C13E9662149121200F7BEEE /* NSParagraphStyle+HooText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSParagraphStyle+HooText.m"; sourceTree = "<group>"; };
 		3C13E96B2149378600F7BEEE /* NSAttributedString+HooText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+HooText.h"; sourceTree = "<group>"; };
 		3C13E96C2149378600F7BEEE /* NSAttributedString+HooText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+HooText.m"; sourceTree = "<group>"; };
-		3C13E96E214BA15800F7BEEE /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.png; sourceTree = "<group>"; };
+		3C13E96E214BA15800F7BEEE /* test@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test@2x.png"; sourceTree = "<group>"; };
 		3C267714214225E5008EBB9F /* HooCoreText.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HooCoreText.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C267717214225E5008EBB9F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3C267718214225E5008EBB9F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -52,10 +72,32 @@
 		3C26773221426E95008EBB9F /* HooCTRunDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HooCTRunDelegate.m; sourceTree = "<group>"; };
 		3C26773421427F4C008EBB9F /* NSMutableAttributedString+HooText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+HooText.h"; sourceTree = "<group>"; };
 		3C26773521427F4C008EBB9F /* NSMutableAttributedString+HooText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+HooText.m"; sourceTree = "<group>"; };
+		3C328046219BCDCF00E593FE /* HooCoreTextTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HooCoreTextTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C328048219BCDCF00E593FE /* HooCoreTextTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HooCoreTextTests.m; sourceTree = "<group>"; };
+		3C32804A219BCDCF00E593FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3C328054219BCDF700E593FE /* HooCoreTextUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HooCoreTextUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C328056219BCDF700E593FE /* HooCoreTextUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HooCoreTextUITests.m; sourceTree = "<group>"; };
+		3C328058219BCDF700E593FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3CE3E2C022448076009BD8E7 /* HooTextAttachment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HooTextAttachment.h; sourceTree = "<group>"; };
+		3CE3E2C122448076009BD8E7 /* HooTextAttachment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HooTextAttachment.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		3C267711214225E5008EBB9F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C328043219BCDCF00E593FE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C328051219BCDF700E593FE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -69,6 +111,8 @@
 			isa = PBXGroup;
 			children = (
 				3C267716214225E5008EBB9F /* HooCoreText */,
+				3C328047219BCDCF00E593FE /* HooCoreTextTests */,
+				3C328055219BCDF700E593FE /* HooCoreTextUITests */,
 				3C267715214225E5008EBB9F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -77,6 +121,8 @@
 			isa = PBXGroup;
 			children = (
 				3C267714214225E5008EBB9F /* HooCoreText.app */,
+				3C328046219BCDCF00E593FE /* HooCoreTextTests.xctest */,
+				3C328054219BCDF700E593FE /* HooCoreTextUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -103,6 +149,8 @@
 			children = (
 				3C26772E21422649008EBB9F /* HooCoreTextView.h */,
 				3C26772F21422649008EBB9F /* HooCoreTextView.m */,
+				3CE3E2C022448076009BD8E7 /* HooTextAttachment.h */,
+				3CE3E2C122448076009BD8E7 /* HooTextAttachment.m */,
 				3C26773121426E95008EBB9F /* HooCTRunDelegate.h */,
 				3C26773221426E95008EBB9F /* HooCTRunDelegate.m */,
 				3C13E95C2147BD7600F7BEEE /* HooCTFrame.h */,
@@ -115,11 +163,29 @@
 				3C13E96C2149378600F7BEEE /* NSAttributedString+HooText.m */,
 				3C26773421427F4C008EBB9F /* NSMutableAttributedString+HooText.h */,
 				3C26773521427F4C008EBB9F /* NSMutableAttributedString+HooText.m */,
-				3C13E96E214BA15800F7BEEE /* test.png */,
+				3C13E96E214BA15800F7BEEE /* test@2x.png */,
 				3C13E9652149121200F7BEEE /* NSParagraphStyle+HooText.h */,
 				3C13E9662149121200F7BEEE /* NSParagraphStyle+HooText.m */,
 			);
 			path = HooCoreTextView;
+			sourceTree = "<group>";
+		};
+		3C328047219BCDCF00E593FE /* HooCoreTextTests */ = {
+			isa = PBXGroup;
+			children = (
+				3C328048219BCDCF00E593FE /* HooCoreTextTests.m */,
+				3C32804A219BCDCF00E593FE /* Info.plist */,
+			);
+			path = HooCoreTextTests;
+			sourceTree = "<group>";
+		};
+		3C328055219BCDF700E593FE /* HooCoreTextUITests */ = {
+			isa = PBXGroup;
+			children = (
+				3C328056219BCDF700E593FE /* HooCoreTextUITests.m */,
+				3C328058219BCDF700E593FE /* Info.plist */,
+			);
+			path = HooCoreTextUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,6 +208,42 @@
 			productReference = 3C267714214225E5008EBB9F /* HooCoreText.app */;
 			productType = "com.apple.product-type.application";
 		};
+		3C328045219BCDCF00E593FE /* HooCoreTextTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3C32804F219BCDCF00E593FE /* Build configuration list for PBXNativeTarget "HooCoreTextTests" */;
+			buildPhases = (
+				3C328042219BCDCF00E593FE /* Sources */,
+				3C328043219BCDCF00E593FE /* Frameworks */,
+				3C328044219BCDCF00E593FE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3C32804C219BCDCF00E593FE /* PBXTargetDependency */,
+			);
+			name = HooCoreTextTests;
+			productName = HooCoreTextTests;
+			productReference = 3C328046219BCDCF00E593FE /* HooCoreTextTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		3C328053219BCDF700E593FE /* HooCoreTextUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3C32805B219BCDF700E593FE /* Build configuration list for PBXNativeTarget "HooCoreTextUITests" */;
+			buildPhases = (
+				3C328050219BCDF700E593FE /* Sources */,
+				3C328051219BCDF700E593FE /* Frameworks */,
+				3C328052219BCDF700E593FE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3C32805A219BCDF700E593FE /* PBXTargetDependency */,
+			);
+			name = HooCoreTextUITests;
+			productName = HooCoreTextUITests;
+			productReference = 3C328054219BCDF700E593FE /* HooCoreTextUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -153,6 +255,14 @@
 				TargetAttributes = {
 					3C267713214225E5008EBB9F = {
 						CreatedOnToolsVersion = 9.3;
+					};
+					3C328045219BCDCF00E593FE = {
+						CreatedOnToolsVersion = 10.0;
+						TestTargetID = 3C267713214225E5008EBB9F;
+					};
+					3C328053219BCDF700E593FE = {
+						CreatedOnToolsVersion = 10.0;
+						TestTargetID = 3C267713214225E5008EBB9F;
 					};
 				};
 			};
@@ -170,6 +280,8 @@
 			projectRoot = "";
 			targets = (
 				3C267713214225E5008EBB9F /* HooCoreText */,
+				3C328045219BCDCF00E593FE /* HooCoreTextTests */,
+				3C328053219BCDF700E593FE /* HooCoreTextUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -182,7 +294,21 @@
 				3C267724214225E9008EBB9F /* LaunchScreen.storyboard in Resources */,
 				3C267721214225E9008EBB9F /* Assets.xcassets in Resources */,
 				3C26771F214225E5008EBB9F /* Main.storyboard in Resources */,
-				3C13E96F214BA15800F7BEEE /* test.png in Resources */,
+				3C13E96F214BA15800F7BEEE /* test@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C328044219BCDCF00E593FE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C328052219BCDF700E593FE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,6 +321,7 @@
 			files = (
 				3C26771C214225E5008EBB9F /* ViewController.m in Sources */,
 				3C26773321426E95008EBB9F /* HooCTRunDelegate.m in Sources */,
+				3CE3E2C222448076009BD8E7 /* HooTextAttachment.m in Sources */,
 				3C267727214225EA008EBB9F /* main.m in Sources */,
 				3C13E9612147D8E500F7BEEE /* HooCTLine.m in Sources */,
 				3C13E9642147D8FB00F7BEEE /* HooCTRun.m in Sources */,
@@ -207,7 +334,36 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3C328042219BCDCF00E593FE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C328049219BCDCF00E593FE /* HooCoreTextTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C328050219BCDF700E593FE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C328057219BCDF700E593FE /* HooCoreTextUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3C32804C219BCDCF00E593FE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3C267713214225E5008EBB9F /* HooCoreText */;
+			targetProxy = 3C32804B219BCDCF00E593FE /* PBXContainerItemProxy */;
+		};
+		3C32805A219BCDF700E593FE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3C267713214225E5008EBB9F /* HooCoreText */;
+			targetProxy = 3C328059219BCDF700E593FE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		3C26771D214225E5008EBB9F /* Main.storyboard */ = {
@@ -371,6 +527,86 @@
 			};
 			name = Release;
 		};
+		3C32804D219BCDCF00E593FE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = HooCoreTextTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = wang.com.HooCoreTextTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HooCoreText.app/HooCoreText";
+			};
+			name = Debug;
+		};
+		3C32804E219BCDCF00E593FE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = HooCoreTextTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = wang.com.HooCoreTextTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HooCoreText.app/HooCoreText";
+			};
+			name = Release;
+		};
+		3C32805C219BCDF700E593FE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = HooCoreTextUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = wang.com.HooCoreTextUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = HooCoreText;
+			};
+			name = Debug;
+		};
+		3C32805D219BCDF700E593FE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = HooCoreTextUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = wang.com.HooCoreTextUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = HooCoreText;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -388,6 +624,24 @@
 			buildConfigurations = (
 				3C26772B214225EA008EBB9F /* Debug */,
 				3C26772C214225EA008EBB9F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3C32804F219BCDCF00E593FE /* Build configuration list for PBXNativeTarget "HooCoreTextTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3C32804D219BCDCF00E593FE /* Debug */,
+				3C32804E219BCDCF00E593FE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3C32805B219BCDF700E593FE /* Build configuration list for PBXNativeTarget "HooCoreTextUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3C32805C219BCDF700E593FE /* Debug */,
+				3C32805D219BCDF700E593FE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

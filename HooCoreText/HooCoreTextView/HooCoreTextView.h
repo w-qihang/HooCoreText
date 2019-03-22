@@ -22,16 +22,24 @@ typedef NS_ENUM(NSUInteger, LineVerticalAlignment) {
 
 @property (nonatomic,strong) NSMutableAttributedString *muastring;
 
+//换行
 - (void)appendNewLine;
 - (void)appendNewLineWithHeight:(float)height;
+//追加空白区域
 - (void)appendSpaceWithWidth:(float)width;
 - (void)appendSpaceWithWidth:(float)width height:(float)height;
 - (void)appendSpaceWithWidth:(float)width height:(float)height backgroundColor:(UIColor *)backgroundColor;
+//追加图片
 - (void)appendImage:(UIImage *)image;
-- (void)appendImage:(UIImage *)image frame:(CGRect)frame;
+- (void)appendImage:(UIImage *)image position:(CGPoint)position;
+//追加视图
 - (void)appendView:(UIView *)view;
+- (void)appendView:(UIView *)view position:(CGPoint)position;
 
 - (instancetype)initWithFrame:(CGRect)frame lineVerticalAlignment:(LineVerticalAlignment)lineVerticalAlignment;
 - (instancetype)initWithLineVerticalAlignment:(LineVerticalAlignment)lineVerticalAlignment;
+
+//重设coretextView高度,能加载全部coretext CTRun
+- (void)hoo_resizeToFit;
 
 @end

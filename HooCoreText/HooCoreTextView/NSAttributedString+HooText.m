@@ -10,29 +10,56 @@
 #import "NSParagraphStyle+HooText.h"
 #import <CoreText/CoreText.h>
 #import <objc/runtime.h>
+#import "HooCTRunDelegate.h"
+#import "HooTextAttachment.h"
 
 @implementation NSAttributedString (HooText)
 
-- (NSParagraphStyle *)hoo_paragraphStyle {
-    return [self hoo_paragraphStyleAtIndex:0];
++ (NSAttributedString *)attachmentStringWithContent:(id)content contentPosition:(CGPoint)position width:(float)width ascent:(float)ascent descent:(float)descent backgroundColor:(UIColor *)backgroundColor {
+    unichar objectReplacementChar = 0xFFFC;
+    NSString *str = [NSString stringWithCharacters:&objectReplacementChar length:1];
+    NSMutableAttributedString *maString = [[NSMutableAttributedString alloc]initWithString:str];
+    
+    HooCTRunDelegate *delegate = [[HooCTRunDelegate alloc]init];
+    delegate.width = width;
+    delegate.ascent = ascent;
+    delegate.descent = descent;
+    //delegate.userInfo = userInfo;
+    CTRunDelegateRef ref = [delegate CTRunDelegateRef];
+    [maString addAttribute:(id)kCTRunDelegateAttributeName value:(__bridge_transfer id)ref range:NSMakeRange(0,maString.length)];
+    
+    if(content) {
+        HooTextAttachment *textAttachment = [[HooTextAttachment alloc]initWithContent:content];
+        textAttachment.contentInsets = UIEdgeInsetsMake(position.y, position.x, 0, 0);
+        [maString addAttribute:kHooTextAttachmentAttributeName value:textAttachment range:NSMakeRange(0,maString.length)];
+    }
+    if(backgroundColor) {
+        [maString addAttribute:NSBackgroundColorAttributeName value:backgroundColor range:NSMakeRange(0,maString.length)];
+    }
+    
+    return [maString copy];
 }
-- (NSParagraphStyle *)hoo_paragraphStyleAtIndex:(NSUInteger)index {
-    return [self hoo_paragraphStyleAtIndex:index effectiveRange:NULL];
+
+- (NSParagraphStyle *)paragraphStyle {
+    return [self paragraphStyleAtIndex:0];
 }
-- (NSParagraphStyle *)hoo_paragraphStyleAtIndex:(NSUInteger)index effectiveRange:(NSRangePointer)range{
-    id style = [self hoo_attribute:NSParagraphStyleAttributeName atIndex:index effectiveRange:range];
+- (NSParagraphStyle *)paragraphStyleAtIndex:(NSUInteger)index {
+    return [self paragraphStyleAtIndex:index effectiveRange:NULL];
+}
+- (NSParagraphStyle *)paragraphStyleAtIndex:(NSUInteger)index effectiveRange:(NSRangePointer)range{
+    id style = [self attribute:NSParagraphStyleAttributeName atIndex:index effectiveRange:range];
     if (style) {
         if (CFGetTypeID((__bridge CFTypeRef)(style)) == CTParagraphStyleGetTypeID()) {
-            style = [NSParagraphStyle hoo_styleWithCTStyle:(__bridge CTParagraphStyleRef)style];
+            style = [NSParagraphStyle styleWithCTStyle:(__bridge CTParagraphStyleRef)style];
         }
     }
     return style;
 }
 
-- (id)hoo_attribute:(NSString *)attributeName atIndex:(NSUInteger)index effectiveRange:(NSRangePointer)range{
+- (id)attribute:(NSString *)attributeName atIndex:(NSUInteger)index effectiveRange:(NSRangePointer)range{
     if (!attributeName) return nil;
     if (index > self.length || self.length == 0) return nil;
-    if (self.length > 0 && index == self.length) index--;
+    //if (self.length > 0 && index == self.length) index--;
     return [self attribute:attributeName atIndex:index effectiveRange:range];
 }
 
