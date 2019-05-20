@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HooTextAttachment : NSObject
 
 @property (nonatomic,strong) id content;
-@property (nonatomic) UIEdgeInsets contentInsets;
+@property (nonatomic) UIEdgeInsets contentInsets; //附件在CTRun的相对位置
 
 //@property (nonatomic)
 
